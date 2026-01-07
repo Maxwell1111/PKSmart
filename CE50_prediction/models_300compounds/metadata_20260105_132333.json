@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260105_132333",
+  "model_scores": {
+    "rf_binary": 0.4101453779834361,
+    "rf_count": 0.40571193185544463,
+    "xgb_binary": 0.4518653911630885,
+    "xgb_count": 0.4137993996468957
+  },
+  "random_state": 42,
+  "fingerprint_config": {
+    "radius": 2,
+    "n_bits": 2048
+  }
+}

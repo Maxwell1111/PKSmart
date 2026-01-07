@@ -1,0 +1,144 @@
+
+================================================================================
+CE50 ENSEMBLE - 300 COMPOUNDS DATASET TEST
+================================================================================
+
+Loading data from ce50_300compounds_training.csv...
+Loaded 298 valid compounds
+
+Data Statistics:
+  Compounds: 298
+  CE50 range: 8.20 - 35.00 μM
+  pCE50 range: -1.5441 - -0.9138
+  CE50 mean: 21.20 μM (±5.03)
+
+Generating dual fingerprints...
+Valid molecules after fingerprint generation: 298 / 298
+Binary fingerprints shape: (298, 2048)
+Count fingerprints shape: (298, 2048)
+
+================================================================================
+TRAINING ENSEMBLE (this will take 2-3 minutes)...
+================================================================================
+
+================================================================================
+TRAINING 4-MODEL ENSEMBLE
+================================================================================
+
+Fitting applicability domain models...
+
+Training RF with binary fingerprints...
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
+Best RF-binary params: {'rf__n_estimators': 200, 'rf__min_samples_split': 2, 'rf__min_samples_leaf': 1, 'rf__max_features': 'sqrt', 'rf__max_depth': None}
+Best CV R² score: 0.4101
+
+Training RF with count fingerprints...
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
+Best RF-count params: {'rf__n_estimators': 200, 'rf__min_samples_split': 2, 'rf__min_samples_leaf': 1, 'rf__max_features': 'sqrt', 'rf__max_depth': None}
+Best CV R² score: 0.4057
+
+Training XGB with binary fingerprints...
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
+Best XGB-binary params: {'xgb__subsample': 0.8, 'xgb__n_estimators': 100, 'xgb__max_depth': 5, 'xgb__learning_rate': 0.1, 'xgb__colsample_bytree': 0.8}
+Best CV R² score: 0.4519
+
+Training XGB with count fingerprints...
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
+Best XGB-count params: {'xgb__subsample': 0.8, 'xgb__n_estimators': 100, 'xgb__max_depth': 7, 'xgb__learning_rate': 0.05, 'xgb__colsample_bytree': 0.8}
+Best CV R² score: 0.4138
+
+================================================================================
+ENSEMBLE EVALUATION ON TEST SET
+================================================================================
+
+RF_BINARY:
+  R² = 0.5275
+  MAE = 0.0548
+  RMSE = 0.0813
+
+RF_COUNT:
+  R² = 0.5254
+  MAE = 0.0540
+  RMSE = 0.0815
+
+XGB_BINARY:
+  R² = 0.5719
+  MAE = 0.0488
+  RMSE = 0.0774
+
+XGB_COUNT:
+  R² = 0.5561
+  MAE = 0.0517
+  RMSE = 0.0788
+
+================================================================================
+GENERATING VISUALIZATIONS
+================================================================================
+Ensemble comparison saved to ensemble_300compounds_comparison.png
+Confidence distribution saved to confidence_300compounds_distribution.png
+Model selection plot saved to model_300compounds_selection.png
+
+================================================================================
+SAVING MODELS
+================================================================================
+Saved rf_binary to models_300compounds/rf_binary_20260105_132333.pkl
+Saved rf_count to models_300compounds/rf_count_20260105_132333.pkl
+Saved xgb_binary to models_300compounds/xgb_binary_20260105_132333.pkl
+Saved xgb_count to models_300compounds/xgb_count_20260105_132333.pkl
+
+Metadata saved to models_300compounds/metadata_20260105_132333.json
+
+Predictions saved to ensemble_300compounds_predictions.csv
+
+================================================================================
+ENSEMBLE SUMMARY - 300 COMPOUNDS
+================================================================================
+
+Dataset:
+  Training set: 240 compounds (80%)
+  Test set: 60 compounds (20%)
+
+Best performing model (by R²):
+  xgb_binary: R² = 0.5719
+  MAE = 0.0488
+  RMSE = 0.0774
+
+All model performance:
+  xgb_binary     : R² =  0.5719, MAE = 0.0488, RMSE = 0.0774
+  xgb_count      : R² =  0.5561, MAE = 0.0517, RMSE = 0.0788
+  rf_binary      : R² =  0.5275, MAE = 0.0548, RMSE = 0.0813
+  rf_count       : R² =  0.5254, MAE = 0.0540, RMSE = 0.0815
+
+Confidence distribution (60 test predictions):
+  High  :  52 ( 86.7%) ███████████████████████████████████████████
+  Medium:   7 ( 11.7%) █████
+  Low   :   1 (  1.7%) 
+
+Model selection frequency:
+  rf_binary      :  50 ( 83.3%) █████████████████████████████████████████
+  rf_count       :  10 ( 16.7%) ████████
+
+Sample predictions (first 10):
+Compound          Actual  Predicted    Error   Conf           Model
+------------------------------------------------------------------------------
+CC0781645        -1.2253    -1.2375   0.0122   High       rf_binary
+CC0781831        -1.4997    -1.4567   0.0430   High       rf_binary
+CC0782190        -1.1818    -1.2136   0.0318   High       rf_binary
+CC0782557        -1.3118    -1.3113   0.0005   High       rf_binary
+CC0782625        -1.4579    -1.4214   0.0365   High       rf_binary
+CC0782666        -1.4742    -1.4278   0.0464   High       rf_binary
+CC0782682        -1.4829    -1.4517   0.0312   High       rf_binary
+CC0782683        -1.3979    -1.3995   0.0016   High       rf_binary
+CC0782687        -1.4639    -1.4332   0.0307   High       rf_binary
+CC0782710        -1.3729    -1.3984   0.0255   High        rf_count
+
+================================================================================
+PIPELINE COMPLETED SUCCESSFULLY
+================================================================================
+
+Output files generated:
+  - ensemble_300compounds_comparison.png
+  - confidence_300compounds_distribution.png
+  - model_300compounds_selection.png
+  - ensemble_300compounds_predictions.csv
+  - models_300compounds/ (6 model files)

@@ -1,0 +1,17 @@
+
+================================================================================
+CE50 ENSEMBLE - 300 COMPOUNDS DATASET TEST
+================================================================================
+
+Loading data from ce50_300compounds_training.csv...
+Traceback (most recent call last):
+  File "/Users/aardeshiri/CE50/run_ensemble_300compounds.py", line 136, in <module>
+    ensemble, predictions, results = main()
+                                     ~~~~^^
+  File "/Users/aardeshiri/CE50/run_ensemble_300compounds.py", line 17, in main
+    df = load_and_prepare_data('ce50_300compounds_training.csv')
+  File "/Users/aardeshiri/CE50/ce50_ensemble_predictor.py", line 610, in load_and_prepare_data
+    df = df.dropna(subset=['smiles', 'ce50'])
+  File "/Users/aardeshiri/miniconda3/lib/python3.13/site-packages/pandas/core/frame.py", line 6692, in dropna
+    raise KeyError(np.array(subset)[check].tolist())
+KeyError: ['smiles', 'ce50']
