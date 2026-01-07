@@ -1,0 +1,166 @@
+================================================================================
+QUICKSTART GUIDE: CE50-Enhanced Rat PK Model Training
+================================================================================
+
+PREREQUISITES
+-------------
+Required Python packages:
+  pip install pandas numpy scikit-learn rdkit mordred-descriptor
+
+Or with conda:
+  conda install pandas numpy scikit-learn rdkit
+  conda install -c conda-forge mordred-descriptor
+
+Required input files (already present):
+  ✓ data/Animal_PK_data.csv
+  ✓ data/rat_ce50_predictions_simple.csv
+
+RUNNING THE TRAINING
+--------------------
+1. Navigate to PKSmart directory:
+   cd /Users/aardeshiri/PKSmart
+
+2. Run the training script:
+   python train_rat_models_with_ce50.py
+
+3. Expected runtime: 30-60 minutes
+   (Progress will be displayed for each step)
+
+OUTPUTS
+-------
+After successful training, you will have:
+
+Models (*.sav files):
+  ✓ log_rat_VDss_L_kg_model_ce50_FINAL.sav
+  ✓ log_rat_CL_mL_min_kg_model_ce50_FINAL.sav
+  ✓ log_rat_fup_model_ce50_FINAL.sav
+
+Supporting files:
+  ✓ scaler_rat_ce50.pkl
+  ✓ features_mfp_mordred_ce50_columns_rat_model.txt (542 features)
+  ✓ Prediction_rat_from_mordred_morgan_fs_ce50.csv (results)
+
+QUICK TEST
+----------
+To verify the models were created:
+
+python << 'PYEOF'
+import pickle
+import os
+
+models = [
+    'log_rat_VDss_L_kg_model_ce50_FINAL.sav',
+    'log_rat_CL_mL_min_kg_model_ce50_FINAL.sav',
+    'log_rat_fup_model_ce50_FINAL.sav',
+    'scaler_rat_ce50.pkl'
+]
+
+print("Checking trained models...")
+for model_file in models:
+    if os.path.exists(model_file):
+        model = pickle.load(open(model_file, 'rb'))
+        print(f"✓ {model_file}")
+        print(f"  Type: {type(model).__name__}")
+    else:
+        print(f"✗ {model_file} - NOT FOUND")
+PYEOF
+
+SCRIPT STRUCTURE
+----------------
+The train_rat_models_with_ce50.py script consists of 9 steps:
+
+Step 1: Load Animal PK Data
+  - Loads Animal_PK_data.csv
+  - Filters for rat compounds
+  - Log-transforms VDss and CL
+  - Groups duplicates by median
+
+Step 2: Load CE50 Predictions
+  - Loads rat_ce50_predictions_simple.csv
+  - Extracts ce50, pce50, confidence
+
+Step 3: Generate Mordred Descriptors
+  - Calculates 1613 Mordred descriptors
+  - Variance filtering (threshold=0.05)
+  - Correlation filtering (r>0.95)
+  - Final: 386 descriptors
+
+Step 4: Generate Morgan Fingerprints
+  - Creates 2048-bit Morgan fingerprints (radius=2)
+  - Variance filtering (threshold=0.05)
+  - Final: 153 fingerprints
+
+Step 5: Merge All Features
+  - Combines: Mordred + Morgan + CE50
+  - Total: 542 features
+
+Step 6: Train Models (Nested CV)
+  - 5-fold outer CV × 5 random seeds
+  - 4-fold inner CV for hyperparameter tuning
+  - Random Forest with GridSearchCV
+  - Model selection by GMFE
+
+Step 7: Save Results
+  - Detailed CV results to CSV
+
+Step 8: Train Final Models
+  - Retrain on full dataset
+  - Use best hyperparameters from Step 6
+
+Step 9: Summary Statistics
+  - Print performance metrics
+
+TROUBLESHOOTING
+---------------
+Error: "ModuleNotFoundError: No module named 'mordred'"
+  Solution: pip install mordred-descriptor
+
+Error: "FileNotFoundError: data/Animal_PK_data.csv"
+  Solution: Run from PKSmart root directory
+
+Error: "FileNotFoundError: data/rat_ce50_predictions_simple.csv"
+  Solution: First run 02a_Generate_CE50_for_rat_data.ipynb
+
+COMPARING WITH BASELINE
+------------------------
+To compare CE50-enhanced vs baseline models:
+
+1. Check baseline results:
+   cat Prediction_rat_from_mordred_morgan_fs.csv
+
+2. Check CE50-enhanced results:
+   cat Prediction_rat_from_mordred_morgan_fs_ce50.csv
+
+3. Compare summary statistics:
+   python << 'PYEOF'
+   import pandas as pd
+   
+   baseline = pd.read_csv('Prediction_rat_from_mordred_morgan_fs.csv')
+   ce50_enhanced = pd.read_csv('Prediction_rat_from_mordred_morgan_fs_ce50.csv')
+   
+   print("BASELINE PERFORMANCE:")
+   print(baseline.groupby('endpoint')[['gmfe', 'r2', 'rmse']].mean())
+   
+   print("\nCE50-ENHANCED PERFORMANCE:")
+   print(ce50_enhanced.groupby('endpoint')[['gmfe', 'r2', 'rmse']].mean())
+   PYEOF
+
+DOCUMENTATION
+-------------
+For detailed information, see:
+  - TRAIN_RAT_CE50_README.md (comprehensive guide)
+  - ce50_integration_summary.txt (technical overview)
+  - CE50_INTEGRATION_GUIDE.md (project overview)
+
+SUPPORT
+-------
+Script generated with Claude Code (claude-sonnet-4-5)
+Date: 2026-01-07
+
+For issues:
+  1. Check all dependencies are installed
+  2. Verify input files exist
+  3. Review error messages in console output
+  4. Check documentation files
+
+================================================================================

@@ -1,0 +1,78 @@
+================================================================================
+QUICK REFERENCE: train_human_models_ce50_simple.py
+================================================================================
+
+SCRIPT LOCATION:
+/Users/aardeshiri/PKSmart/train_human_models_ce50_simple.py
+
+INPUT FILES (2):
+1. data/Human_PK_data.csv
+2. data/human_ce50_predictions_simple.csv
+
+OUTPUT FILES (13):
+1. features_mfp_mordred_ce50_columns_human.txt
+2. human_ce50_human_VDss_L_kg_scaler.pkl
+3. human_ce50_human_CL_mL_min_kg_scaler.pkl
+4. human_ce50_human_fup_scaler.pkl
+5. human_ce50_human_mrt_scaler.pkl
+6. human_ce50_human_thalf_scaler.pkl
+7. log_human_human_VDss_L_kg_ce50_model_FINAL.sav
+8. log_human_human_CL_mL_min_kg_ce50_model_FINAL.sav
+9. log_human_human_fup_ce50_model_FINAL.sav
+10. log_human_human_mrt_ce50_model_FINAL.sav
+11. log_human_human_thalf_ce50_model_FINAL.sav
+12. Prediction_human_from_mordred_morgan_ce50.csv
+13. human_ce50.csv
+
+FEATURES:
+- 352 Mordred descriptors
+- 152 Morgan fingerprints
+- 3 CE50 features (ce50, pce50, confidence)
+- TOTAL: 507 features
+
+ENDPOINTS:
+1. human_VDss_L_kg (Volume of distribution) - log transformed
+2. human_CL_mL_min_kg (Clearance) - log transformed
+3. human_fup (Fraction unbound) - NOT log transformed
+4. human_mrt (Mean residence time) - log transformed
+5. human_thalf (Half-life) - log transformed
+
+TRAINING:
+- Nested 5-fold cross-validation
+- 5 random seeds (42-46)
+- GridSearchCV for hyperparameter tuning
+- Total evaluations: 125 (5 endpoints × 5 seeds × 5 folds)
+
+RUNTIME:
+~20-35 minutes total
+- Mordred generation: ~2-5 min
+- Model training: ~15-30 min
+
+RUN COMMANDS:
+python train_human_models_ce50_simple.py
+# OR
+./train_human_models_ce50_simple.py
+
+VERIFY OUTPUT:
+ls -1 features_mfp_mordred_ce50_columns_human.txt \
+     human_ce50_*.pkl \
+     log_human_*_ce50_model_FINAL.sav \
+     Prediction_human_from_mordred_morgan_ce50.csv \
+     human_ce50.csv | wc -l
+# Should return: 13
+
+wc -l features_mfp_mordred_ce50_columns_human.txt
+# Should return: 507
+
+VIEW RESULTS:
+cat human_ce50.csv
+head -10 Prediction_human_from_mordred_morgan_ce50.csv
+
+KEY DIFFERENCES FROM RAT:
+- 5 endpoints (vs 3 for rat)
+- 507 features (vs 542 for rat)
+- Endpoint-specific scalers (vs shared for rat)
+- Saves summary CSV (rat doesn't)
+- Log transforms mrt & thalf (rat doesn't have these)
+
+================================================================================
