@@ -8,7 +8,7 @@
 
 ## 🎯 Objectives Achieved
 
-Successfully integrated CE50 (collision energy) features into PKSmart pharmacokinetic prediction models to enhance prediction accuracy through cytotoxicity information.
+Successfully integrated CE50 (collision energy) features into PKSmart pharmacokinetic prediction models to enhance prediction accuracy through compound fragmentation energetics. CE50 represents the collision energy where 50% of the parent ion has fragmented in mass spectrometry, providing insights into molecular stability and fragmentation patterns.
 
 ---
 
@@ -124,7 +124,7 @@ Structural Features:
   ├── Morgan Fingerprints: 153
   │   └── Circular substructure patterns (radius=2)
   └── CE50 Features: 3
-      ├── ce50: Collision energy in eV
+      ├── ce50: Collision energy (eV) where 50% parent ion fragments
       ├── pce50: -log10(CE50)
       └── confidence: Prediction confidence score (0-6)
 ```
@@ -137,7 +137,7 @@ Structural Features:
   ├── Morgan Fingerprints: 152
   │   └── Variance-filtered circular patterns
   └── CE50 Features: 3
-      ├── ce50: Cytotoxicity marker
+      ├── ce50: Collision energy for 50% fragmentation (mass spec)
       ├── pce50: Log-transformed CE50
       └── confidence: Ensemble agreement score
 ```
@@ -232,7 +232,7 @@ CHECK_TRAINING_COMPLETION.sh
 
 1. **CE50 Feature Integration**
    - Successfully generated CE50 predictions for all compounds
-   - Integrated cytotoxicity information into structural models
+   - Integrated compound fragmentation energetics into structural models
    - Maintained prediction performance while adding new features
 
 2. **Robust Model Training**
@@ -283,7 +283,7 @@ CHECK_TRAINING_COMPLETION.sh
 2. **Extended CE50 Properties**
    - Add individual model predictions (not just ensemble)
    - Include additional collision energy metrics
-   - Test other cytotoxicity assays
+   - Test other fragmentation energy measurements
 
 3. **External Validation**
    - Test on completely independent datasets
@@ -351,7 +351,7 @@ Human PK prediction is inherently challenging:
 - **Mordred:** Comprehensive descriptor library
 - **scikit-learn:** Machine learning framework
 - **PKSmart:** Base PK prediction platform
-- **CE50 Prediction Models:** Cytotoxicity prediction ensemble
+- **CE50 Prediction Models:** Compound fragmentation energy prediction ensemble
 
 ---
 

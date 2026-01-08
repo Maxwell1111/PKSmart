@@ -131,8 +131,8 @@ The 516 features consist of:
    - Variance filtered (threshold=0.05)
 
 ### CE50 Features (3 features)
-3. **CE50 Cytotoxicity** (3 features)
-   - `ce50` - Cytotoxic concentration (µM)
+3. **CE50 Fragmentation Energetics** (3 features)
+   - `ce50` - Collision energy (eV) where 50% of parent ion fragments in mass spectrometry
    - `pce50` - Negative log10 of CE50
    - `confidence` - Prediction confidence score
 
@@ -215,7 +215,7 @@ The 516 features consist of:
 
 This CE50-enhanced approach improves upon the baseline model by:
 
-1. **Adding CE50 features** (3 features) - Cytotoxicity information
+1. **Adding CE50 features** (3 features) - Compound fragmentation energetics from mass spectrometry
 2. **CE50-enhanced rat predictions** - Better animal-to-human translation
 3. **Expected improvement**: ~5-10% reduction in GMFE
 

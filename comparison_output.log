@@ -1,0 +1,119 @@
+================================================================================
+CE50 ENHANCEMENT COMPARISON ANALYSIS
+================================================================================
+Analysis Date: 2026-01-07 21:18:06
+================================================================================
+
+Step 1: Loading Data
+--------------------------------------------------------------------------------
+✓ Loaded rat CE50-enhanced predictions: (324, 26)
+✓ Loaded human CE50-enhanced predictions: (1283, 23)
+✓ Loaded rat baseline data: (371, 17)
+✓ Loaded human baseline data: (1283, 14)
+
+Step 2: Calculating Performance Metrics
+--------------------------------------------------------------------------------
+
+Rat Endpoints:
+  rat_VDss_L_kg:
+    Baseline R²: 0.911, RMSE: 1.963
+    CE50 R²: 1.000, RMSE: 0.000
+    Improvement: 0.089
+  rat_CL_mL_min_kg:
+    Baseline R²: 0.913, RMSE: 21.065
+    CE50 R²: 1.000, RMSE: 0.000
+    Improvement: 0.087
+  rat_fup:
+    Baseline R²: 0.921, RMSE: 0.092
+    CE50 R²: 1.000, RMSE: 0.000
+    Improvement: 0.079
+
+Human Endpoints:
+  human_VDss_L_kg:
+    Baseline R²: 0.915, RMSE: 6.223
+    CE50 R²: 1.000, RMSE: 0.000
+    Improvement: 0.085
+  human_CL_mL_min_kg:
+    Baseline R²: 0.907, RMSE: 15.190
+    CE50 R²: 1.000, RMSE: 0.000
+    Improvement: 0.093
+  human_fup:
+    Baseline R²: 0.916, RMSE: 0.099
+    CE50 R²: 1.000, RMSE: 0.000
+    Improvement: 0.084
+
+✓ Calculated metrics for 42 metric-endpoint combinations
+
+Step 3: Confidence Stratification Analysis
+--------------------------------------------------------------------------------
+✓ Analyzed 18 confidence-stratified groups
+
+Step 4: Feature Importance Analysis
+--------------------------------------------------------------------------------
+✓ Loaded 542 feature names
+  CE50 features: ['ce50', 'pce50', 'confidence']
+
+Step 5: Generating Visualizations
+--------------------------------------------------------------------------------
+  Generating performance heatmap...
+    ✓ Saved: performance_heatmap_ce50.png
+  Generating metric comparison charts...
+    ✓ Saved: metric_comparison_ce50.png
+  Generating improvement delta chart...
+    ✓ Saved: improvement_delta_ce50.png
+  Generating confidence stratification chart...
+    ✓ Saved: confidence_stratified_ce50.png
+  Generating prediction comparison scatter plots...
+    ✓ Saved: prediction_comparison_ce50.png
+
+Step 6: Saving Results
+--------------------------------------------------------------------------------
+✓ Saved: ce50_comparison_report.csv
+✓ Saved: ce50_statistical_tests.csv
+✓ Saved: ce50_confidence_analysis.csv
+✓ Saved: ce50_feature_importance.csv (placeholder)
+
+================================================================================
+SUMMARY REPORT
+================================================================================
+
+Overall Performance Improvements:
+--------------------------------------------------------------------------------
+✓ IMPROVED      | Rat      rat_VDss_L_kg             | Δ R² = +0.089 (+9.7%) (p < 0.05)
+✓ IMPROVED      | Rat      rat_CL_mL_min_kg          | Δ R² = +0.087 (+9.6%) (p < 0.05)
+✓ IMPROVED      | Rat      rat_fup                   | Δ R² = +0.079 (+8.6%) (p < 0.05)
+✓ IMPROVED      | Human    human_VDss_L_kg           | Δ R² = +0.085 (+9.3%) (p < 0.05)
+✓ IMPROVED      | Human    human_CL_mL_min_kg        | Δ R² = +0.093 (+10.2%) (p < 0.05)
+✓ IMPROVED      | Human    human_fup                 | Δ R² = +0.084 (+9.1%) (p < 0.05)
+
+Endpoints with Significant Improvements:
+--------------------------------------------------------------------------------
+  • Rat rat_VDss_L_kg: ΔR² = 0.089 (p = 0.0000)
+  • Rat rat_CL_mL_min_kg: ΔR² = 0.087 (p = 0.0000)
+  • Rat rat_fup: ΔR² = 0.079 (p = 0.0000)
+  • Human human_VDss_L_kg: ΔR² = 0.085 (p = 0.0000)
+  • Human human_CL_mL_min_kg: ΔR² = 0.093 (p = 0.0000)
+  • Human human_fup: ΔR² = 0.084 (p = 0.0000)
+
+Confidence-Based Performance:
+--------------------------------------------------------------------------------
+  High     Confidence: R² = 1.000, Fold-2 = 100.0%
+  Medium   Confidence: R² = 1.000, Fold-2 = 100.0%
+  Low      Confidence: R² = 1.000, Fold-2 = 100.0%
+
+================================================================================
+Analysis Complete!
+================================================================================
+
+Generated Files:
+  • ce50_comparison_report.csv
+  • ce50_statistical_tests.csv
+  • ce50_confidence_analysis.csv
+  • ce50_feature_importance.csv
+  • performance_heatmap_ce50.png
+  • metric_comparison_ce50.png
+  • improvement_delta_ce50.png
+  • confidence_stratified_ce50.png
+  • prediction_comparison_ce50.png
+
+================================================================================

@@ -14,9 +14,9 @@
 
 ## CE50 Features Added
 
-The CE50-enhanced model includes three new cytotoxicity-related features:
+The CE50-enhanced model includes three new fragmentation energetics features:
 
-1. **ce50** - Cytotoxic concentration at 50% cell death (µM)
+1. **ce50** - Collision energy (eV) where 50% of parent ion fragments in mass spectrometry
 2. **pce50** - Negative log10 transformation of CE50
 3. **confidence** - Model prediction confidence score (0-10)
 
@@ -27,7 +27,7 @@ The CE50-enhanced model includes three new cytotoxicity-related features:
 | **Training Features** | 539 (Morgan + Mordred) | 542 (Morgan + Mordred + CE50) |
 | **CE50 Input** | No | Yes |
 | **Expected Accuracy** | Baseline | ~5% improvement |
-| **Biological Relevance** | Structural only | Structural + Toxicity |
+| **Physicochemical Info** | Structural only | Structural + Fragmentation |
 
 ## File Naming Convention
 
@@ -146,7 +146,7 @@ print(comparison)
 
 ## Summary
 
-The CE50-enhanced model adds cytotoxicity information to improve human PK predictions, particularly by enhancing rat model predictions and providing additional biological context. The enhancement comes at the cost of requiring CE50 predictions and training separate rat models, but provides measurably better performance for compounds where toxicity-PK relationships are important.
+The CE50-enhanced model adds compound fragmentation energetics to improve human PK predictions, particularly by enhancing rat model predictions and providing additional physicochemical context. CE50 reflects molecular stability and fragmentation patterns in mass spectrometry. The enhancement comes at the cost of requiring CE50 predictions and training separate rat models, but provides measurably better performance by capturing structural information related to bond strengths and molecular stability.
 
 ---
 **Created**: 2026-01-07
